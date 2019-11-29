@@ -1,10 +1,12 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use App\Contact;
+use Collective\Html\FormFacade;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller 
+class ContactController extends Controller
 {
 
   /**
@@ -14,7 +16,8 @@ class ContactController extends Controller
    */
   public function index()
   {
-    
+      $records = Contact::all();
+      return view('admin/pages/contacts.all')->with(['records' => $records]);
   }
 
   /**
@@ -24,7 +27,7 @@ class ContactController extends Controller
    */
   public function create()
   {
-    
+
   }
 
   /**
@@ -34,7 +37,7 @@ class ContactController extends Controller
    */
   public function store(Request $request)
   {
-    
+
   }
 
   /**
@@ -45,7 +48,7 @@ class ContactController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -56,7 +59,7 @@ class ContactController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -67,7 +70,7 @@ class ContactController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -78,9 +81,10 @@ class ContactController extends Controller
    */
   public function destroy($id)
   {
-    
+      Contact::find($id)->delete();
+      return redirect(url(route('contact.index')))->with('warning', 'Message Deleted');
   }
-  
+
 }
 
 ?>

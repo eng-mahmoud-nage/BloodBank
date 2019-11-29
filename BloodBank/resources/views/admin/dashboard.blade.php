@@ -3,24 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Blank Page</title>
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{url('/')}}/Admin/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{url('/')}}/Admin/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{url('/')}}/Admin/datatables-bs4/css/dataTables.bootstrap4.css">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
     {{--  navbar & sidebar  --}}
-    @include('admin.inc.header')
+    @if(auth()->check())
+        @include('admin.inc.header')
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -33,7 +50,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
               <li class="breadcrumb-item active">@yield('title')</li>
             </ol>
           </div>
@@ -44,31 +61,26 @@
     <!-- Main content -->
     <section class="content">
 
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
-        </div>
-        <div class="card-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          Footer
-        </div>
-        <!-- /.card-footer-->
+      <!-- pages -->
+      <div class="container">
+          <!-- messages -->
+          @include('admin.inc.message')
+          <!-- pages -->
+          @if(auth()->user()->status == 1)
+          @yield('content')
+          @else
+              <div class="alert alert-danger">
+                  <strong>whoops!</strong> : You can`t access this site , You Baned in this site.
+              </div>
+          @endif
       </div>
-      <!-- /.card -->
-
+    @endif
+        <!-- /.pages -->
+        @yield('auth')
     </section>
-    <!-- /.content -->
+
+
+        <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
@@ -94,7 +106,37 @@
 <script src="{{url('/')}}/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{url('/')}}/Admin/js/adminlte.min.js"></script>
+<!-- DataTables -->
+<script src="{{url('/')}}/Admin/plugins/datatables/jquery.dataTables.js"></script>
+<script src="{{url('/')}}/Admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('/')}}/Admin/js/demo.js"></script>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
+<!-- page script -->
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+        });
+    });
+
+    $('#exampleModal').on('show.bs.modal', event => {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        // Use above variables to manipulate the DOM
+
+    });
+    // Material Select Initialization
+    $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+    });
+
+</script>
 </body>
 </html>

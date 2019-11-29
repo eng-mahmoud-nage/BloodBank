@@ -11,10 +11,10 @@ class CreateContactsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name');
-			$table->string('e-mail');
+			$table->string('e_mail');
 			$table->string('phone');
 			$table->string('subject');
-			$table->text('messege');
+			$table->text('message');
 		});
 	}
 

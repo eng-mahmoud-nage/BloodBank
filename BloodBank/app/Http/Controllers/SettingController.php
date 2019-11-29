@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use Illuminate\Http\Request;
 
-class SettingController extends Controller 
+class SettingController extends Controller
 {
 
   /**
@@ -14,7 +15,7 @@ class SettingController extends Controller
    */
   public function index()
   {
-    
+
   }
 
   /**
@@ -24,7 +25,7 @@ class SettingController extends Controller
    */
   public function create()
   {
-    
+
   }
 
   /**
@@ -34,7 +35,7 @@ class SettingController extends Controller
    */
   public function store(Request $request)
   {
-    
+
   }
 
   /**
@@ -45,7 +46,7 @@ class SettingController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -56,7 +57,9 @@ class SettingController extends Controller
    */
   public function edit($id)
   {
-    
+      $record = Setting::find($id);
+      return view('admin/pages/setting.edit')->with(['record' => $record]);
+
   }
 
   /**
@@ -65,9 +68,13 @@ class SettingController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, $id)
   {
-    
+      $request->validate([
+          'name' => 'required'
+      ]);
+      Setting::find($id)->update($request->all());
+      return redirect(url(route('setting.index')))->with('success', 'Setting Updated');
   }
 
   /**
@@ -78,9 +85,9 @@ class SettingController extends Controller
    */
   public function destroy($id)
   {
-    
+
   }
-  
+
 }
 
 ?>

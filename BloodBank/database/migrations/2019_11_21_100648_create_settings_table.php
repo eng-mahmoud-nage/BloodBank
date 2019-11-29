@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration {
 			$table->string('insta_link');
 			$table->string('youtube_link');
 			$table->text('about_app');
-			$table->string('e-mail');
+			$table->string('e_mail');
 			$table->string('notification_setting_text');
 		});
 	}

@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Facade\FlareClient\Http\Response;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -48,4 +50,11 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception){
+return $request->expectsJson()
+    ? ResponseJson(0, 'unauthenticated','')
+    : redirect()->guest($exception->redirectTo() ?? route('login'));
+}
+
 }

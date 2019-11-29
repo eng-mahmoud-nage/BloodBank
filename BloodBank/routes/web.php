@@ -10,23 +10,35 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Auth::routes();
-Route::get('/', function () {
-    return view('layouts.app');
-});
 Route::group(['middleware' => 'auth'], function (){
+    // dashboard page
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    });
+    // Profile page
+    Route::get('/profile', function () {
+        return view('admin.admins.profile');
+    });
+    Route::get('/home', 'HomeController@index');
+    // pages
+    Route::post('/changepass', 'ChangePasswordController@changepass');
+    Route::post('/edit-profile', 'HomeController@edit_profile');
+    Route::resource('admin', 'AdminController');
+    Route::resource('bloodtype', 'BloodTypeController');
+    Route::resource('governorate', 'GovernorateController');
+    Route::resource('city', 'CityController');
+    Route::resource('post', 'PostController');
+    Route::resource('category', 'CategoryController');
+    Route::resource('donation', 'DonationRequestController');
+    Route::resource('notification', 'NotificationController');
+    Route::resource('setting', 'SettingController');
+    Route::resource('contact', 'ContactController');
 
-Route::resource('clients', 'ClientsController');
-Route::resource('bloodtype', 'BloodTypeController');
-Route::resource('governrate', 'GovernorateController');
-Route::resource('city', 'CityController');
-Route::resource('post', 'PostController');
-Route::resource('category', 'CategoryController');
-Route::resource('donationrequest', 'DonationRequestController');
-Route::resource('notification', 'NotificationController');
-Route::resource('setting', 'SettingController');
-Route::resource('contact', 'ContactController');
-Route::resource('clientable', 'ClientableController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('role', 'Role\RoleController');
+    Route::resource('permission', 'Role\PermissionController');
+
 });

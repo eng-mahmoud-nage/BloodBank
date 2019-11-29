@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use App\DonationRequest;
 use Illuminate\Http\Request;
 
-class DonationRequestController extends Controller 
+class DonationRequestController extends Controller
 {
 
   /**
@@ -14,7 +15,8 @@ class DonationRequestController extends Controller
    */
   public function index()
   {
-    
+      $records = DonationRequest::all();
+      return view('admin/pages/donations.all')->with(['records' => $records]);
   }
 
   /**
@@ -24,7 +26,7 @@ class DonationRequestController extends Controller
    */
   public function create()
   {
-    
+
   }
 
   /**
@@ -34,7 +36,7 @@ class DonationRequestController extends Controller
    */
   public function store(Request $request)
   {
-    
+
   }
 
   /**
@@ -45,7 +47,9 @@ class DonationRequestController extends Controller
    */
   public function show($id)
   {
-    
+      $record = DonationRequest::find($id);
+      //dd($record);
+      return view('admin/pages/donations.donation')->with(['record' => $record]);
   }
 
   /**
@@ -56,7 +60,7 @@ class DonationRequestController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -67,7 +71,7 @@ class DonationRequestController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -78,9 +82,11 @@ class DonationRequestController extends Controller
    */
   public function destroy($id)
   {
-    
+      $records = DonationRequest::find($id)->delete();
+      //dd($record);
+      return redirect(url(route('donation.index')))->with('warning', 'Donation Deleted');
   }
-  
+
 }
 
 ?>

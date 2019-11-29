@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('admin.home');
+    }
+
+    function edit_profile(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+        auth()->user()->update($request->all());
+        return redirect(url('/profile'))->with('success', 'Profile Updated.');
     }
 }

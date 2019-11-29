@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Governorate;
 use Illuminate\Http\Request;
 
 class GovernorateController extends Controller
@@ -14,7 +15,8 @@ class GovernorateController extends Controller
    */
   public function index()
   {
-
+        $records = Governorate::all();
+        return view('admin/pages/governorates.all')->with(['records' => $records]);
   }
 
   /**
@@ -24,7 +26,7 @@ class GovernorateController extends Controller
    */
   public function create()
   {
-
+        return view('admin.pages.governorates.create');
   }
 
   /**
@@ -34,7 +36,11 @@ class GovernorateController extends Controller
    */
   public function store(Request $request)
   {
-
+        $request->validate([
+            'name' => 'required|unique:governorates'
+        ]);
+        Governorate::create($request->all());
+        return redirect(url(route('governorate.index')))->with('success', 'Governorate Created');
   }
 
   /**
@@ -56,7 +62,8 @@ class GovernorateController extends Controller
    */
   public function edit($id)
   {
-
+      $record = Governorate::find($id);
+        return view('admin/pages/governorates.edit')->with(['record' => $record]);
   }
 
   /**
@@ -65,9 +72,13 @@ class GovernorateController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, $id)
   {
-
+      $request->validate([
+          'name' => 'required|unique:governorates'
+      ]);
+      Governorate::find($id)->update($request->all());
+      return redirect(url(route('governorate.index')))->with('success', 'Governorate Updated');
   }
 
   /**
@@ -78,7 +89,8 @@ class GovernorateController extends Controller
    */
   public function destroy($id)
   {
-
+      Governorate::find($id)->delete();
+      return redirect(url(route('governorate.index')))->with('warning', 'Governorate Deleted');
   }
 
 }
