@@ -15,7 +15,7 @@
                                      src="{{url('/')}}/Admin/img/mahmoud.jpg" alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
-                            <p class="text-muted text-center">{{auth()->user()->position}}</p>
+                            <p class="text-muted text-center">{{ auth()->user()->roles->pluck('name')}}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>

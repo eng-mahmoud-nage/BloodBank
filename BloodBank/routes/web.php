@@ -13,7 +13,7 @@
 
 
 Auth::routes();
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => ['auth', 'autoCheckPermission']], function (){
     // dashboard page
     Route::get('/', function () {
         return view('admin.dashboard');
@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function (){
     // pages
     Route::post('/changepass', 'ChangePasswordController@changepass');
     Route::post('/edit-profile', 'HomeController@edit_profile');
-    Route::resource('admin', 'AdminController');
+    Route::resource('client', 'ClientController');
     Route::resource('bloodtype', 'BloodTypeController');
     Route::resource('governorate', 'GovernorateController');
     Route::resource('city', 'CityController');
@@ -37,8 +37,11 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('setting', 'SettingController');
     Route::resource('contact', 'ContactController');
 
-
+    Route::resource('admin', 'AdminController');
     Route::resource('role', 'Role\RoleController');
     Route::resource('permission', 'Role\PermissionController');
+
+
+    Route::get('/search', 'PostController@index');
 
 });

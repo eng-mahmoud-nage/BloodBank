@@ -231,8 +231,15 @@
                 {{--       // users         --}}
                 <li class="nav-item">
                     <a href="{{url(route('admin.index'))}}" class="nav-link">
-                        <i class="fa fa-users nav-icon"></i>
+                        <i class="fas fa-user-cog nav-icon"></i>
                         <p>Users</p>
+                    </a>
+                </li>
+                {{--       // Clients         --}}
+                <li class="nav-item">
+                    <a href="{{url(route('client.index'))}}" class="nav-link">
+                        <i class="fa fa-users nav-icon"></i>
+                        <p>Clients</p>
                     </a>
                 </li>
                 {{--       // Messages         --}}

@@ -29,8 +29,7 @@ class PermissionController extends Controller
     public function create()
     {
         $record = new Permission();
-        return view('admin.admins.permissions.create', compact('record'));
-
+        return view('admin.admins.permissions.createOrUpdate', compact('record'));
     }
 
     /**
@@ -43,10 +42,14 @@ class PermissionController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:permissions',
-            'role_list' => 'required',
+//            'role_list' => 'required|array',
         ]);
-        $permission = Permission::create($request->except('role_list'));
-        Role::findById($request->input('role_list'))->givePermissionTo($permission);
+        $permission = Permission::create($request->all());
+//        $role = Role::where('id', [$request->input('role_list')])->get();
+//        $role->givePermissionTo($permission);
+        if ($request->has('Add More')){
+            dd("more");
+        }
         return redirect(route('permission.index'))->with('session', 'Permission Created');
     }
 
@@ -70,7 +73,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $record = Permission::findById($id);
-        return view('admin.admins.permissions.edit', compact('record'));
+        return view('admin.admins.permissions.createOrUpdate', compact('record'));
     }
 
     /**
@@ -82,6 +85,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd("editcontroller");
         $request->validate([
             'name' => 'required|unique:permissions,name,'.$id,
             'role_list' => 'required',

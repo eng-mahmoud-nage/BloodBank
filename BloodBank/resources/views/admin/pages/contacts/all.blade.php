@@ -15,7 +15,7 @@
             <div class="row">
                 @foreach($records as $record)
                 <div class="col-md-4">
-                    <div class="card bg-gradient-primary">
+                    <div class="card bg-gradient-olive">
                         <div class="card-header" style="border-bottom: 1px solid #000">
                             <h3 class="card-title">Message {{$loop->iteration}}</h3>
 
@@ -35,26 +35,26 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             Name:
-                            <label style="box-shadow: -2px -3px 3px #127CFA inset; width:100%; text-align: center">
+                            <label style="box-shadow: -2px -3px 3px rgba(0,0,0,0.1) inset; width:100%; text-align: center">
                             {{$record->name}}
                             </label><br>
                             E_mail:
-                            <label style="box-shadow: -2px -3px 3px #127CFA inset; width: 100%; text-align: center">
+                            <label style="box-shadow: -2px -3px 3px rgba(0,0,0,0.1) inset; width: 100%; text-align: center">
                             {{$record->e_mail}}
                             </label><br>
                             Phone:
-                            <label style="box-shadow: -2px -3px 3px #127CFA inset; width: 100%; text-align: center">
+                            <label style="box-shadow: -2px -3px 3px rgba(0,0,0,0.1) inset; width: 100%; text-align: center">
                             {{$record->phone}}
                             </label><br>
                             Subject:
-                            <label style="box-shadow: -2px -3px 3px #127CFA inset; width: 100%; text-align: center">
+                            <label style="box-shadow: -2px -3px 3px rgba(0,0,0,0.1) inset; width: 100%; text-align: center">
                             {{$record->subject}}
                             </label>
                         </div>
                         <div class="card-body">
                             Message: <br>
                             <textarea readonly rows="5" cols="31"
-                                      class="bg-gradient-primary" style="cursor: default; border-radius: 10%; border-color: rgb(19, 124, 250)">
+                                      class="bg-transparent" style="cursor: default; border-radius: 10%; border-color: transparent">
                                 {{$record->message}}
                             </textarea>
                         </div>
@@ -71,8 +71,7 @@
                         </div></div>
                         <div class="card-body">
                             <textarea  rows="2" cols="31"
-                                      style="cursor: text; border-radius: 10%; border-color: #999">
-
+                                      style="cursor: text; border-radius: 10%; border-color: rgba(0,0,0,0.1)">
                             </textarea>
                         </div>
                     </div>

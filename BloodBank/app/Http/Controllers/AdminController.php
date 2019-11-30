@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
         $records = User::all();
-        return view('admin/pages/clients.all', compact('records'));
+        return view('admin/admins/users.all', compact('records'));
     }
 
     /**
@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function create()
     {
         $record = new User();
-        return view('admin.pages.clients.create', compact('record'));
+        return view('admin.admins.users.createOrUpdate', compact('record'));
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'password' => 'required|min:8',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'role_list' => 'required|array',
             'permission_list' => 'required|array',
         ]);
@@ -76,7 +76,7 @@ class AdminController extends Controller
     public function edit($id)
     {
         $record = User::find($id);
-        return view('admin.pages.clients.edit', compact('record'));
+        return view('admin.admins.users.createOrUpdate', compact('record'));
     }
 
     /**
@@ -88,15 +88,24 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required|min:8',
+            'email' => 'required|email|unique:users,'.$id,
+            'role_list' => 'required|array',
+            'permission_list' => 'required|array',
+        ]);
+
         $user = User::find($id);
-        if(!$request->input('status'))
-            $user->update(['status' => 0]);
-        elseif($request->input('status'))
-            $user->update(['status' => 1]);
-        else{
-            $user->update($request->except('role_list', 'permission_list', 'status'));
+            if($request->input('status')) {
+                $user->update(['status' => 0]);
+                return redirect(route('admin.index'))->with('danger', 'User Banned');
+            }else{
+                $user->update(['status' => 1]);
+            }
+            $user->update($request->except('role_list', 'permission_list', 'status','password'));
             $user->syncRoles($request->input('role_list'));
-            $user->syncPermissions($request->input('permission_list'));}
+            $user->syncPermissions($request->input('permission_list'));
         return redirect(route('admin.index'))->with('success', 'User Updated');
     }
 

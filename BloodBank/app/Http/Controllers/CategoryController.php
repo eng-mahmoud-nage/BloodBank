@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use DemeterChain\C;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -25,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        $record = new Category();
+        return view('admin.pages.categories.createOrUpdate', compact('record'));
     }
 
     /**
@@ -62,19 +64,20 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $record = Category::find($id);
-        return view('admin/pages/categories.edit')->with(['record' => $record]);
+        return view('admin/pages/categories.createOrUpdate', compact('record'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:categories,name,'.$id
         ]);
         Category::find($id)->update($request->all());
         return redirect(url(route('category.index')))->with('success', 'Category Updated');

@@ -1,7 +1,5 @@
 @extends('admin.dashboard')
 @section('content')
-
-    @hasrole('owner')
     @if(!empty($records))
         <div class="card">
             <div class="card-header">
@@ -13,18 +11,6 @@
             </div><!-- /.card-header -->
         <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_length" id="example1_length">
-
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div id="example1_filter" class="dataTables_filter">
-
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
@@ -94,10 +80,10 @@
         </div>
         <!-- /.card-body -->
     </div>
-@endif
+
     @else
     <div class="alert alert-danger">
         whoops! : You don`t have Permission to access this page.
     </div>
-@endhasrole
+    @endif
 @endsection

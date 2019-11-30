@@ -27,7 +27,7 @@ class RoleController extends Controller
     public function create()
     {
         $record = new Role();
-        return view('admin.admins.roles.create', compact('record'));
+        return view('admin.admins.roles.createOrUpdate', compact('record'));
     }
 
     /**
@@ -40,7 +40,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:roles',
-            'permission_list' => 'required',
+            'permission_list' => 'required|array',
         ]);
         $role = Role::create($request->except('permission_list'));
         $role->givePermissionTo($request->input('permission_list'));
@@ -67,7 +67,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $record = Role::findById($id);
-        return view('admin.admins.roles.edit', compact('record'));
+        return view('admin.admins.roles.createOrUpdate', compact('record'));
     }
 
     /**
@@ -81,13 +81,13 @@ class RoleController extends Controller
     {
         $request->validate([
         'name' => 'required|unique:roles,name,'.$id,
-        'permission_list' => 'required',
+        'permission_list' => 'required|array',
     ]);
 
         $role = Role::findById($id);
         $role->update($request->except('permission_list'));
         $role->syncPermissions($request->input('permission_list'));
-        return redirect(route('role.index'))->with('session', 'Role Updated');
+        return redirect(route('role.index'))->with('success', 'Role Updated');
     }
 
     /**

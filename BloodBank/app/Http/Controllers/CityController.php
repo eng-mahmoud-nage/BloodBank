@@ -15,8 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $records = City::all();
-        return view('admin/pages/cities.all')->with(['records' => $records]);
+        $records = City::all()->load('governorate');
+        return view('admin/pages/cities.all', compact('records'));
     }
 
     /**
@@ -26,7 +26,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.cities.create');
+        $record = new City();
+        return view('admin.pages.cities.createOrUpdate',compact('record'));
     }
 
     /**
@@ -39,9 +40,7 @@ class CityController extends Controller
         $request->validate([
             'name' => 'required|unique:cities'
         ]);
-        $c = City::create($request->except('governorate_id'));
-        $c->governorate_id = $request->input('governorate')+1;
-        $c->save();
+        $c = City::create($request->all());
         return redirect(url(route('city.index')))->with('success', 'City Created');
     }
 
@@ -65,19 +64,20 @@ class CityController extends Controller
     public function edit($id)
     {
         $record = City::find($id);
-        return view('admin/pages/cities.edit')->with(['record' => $record]);
+        return view('admin.pages.cities..createOrUpdate',compact('record'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|unique:cities'
+            'name' => 'required|unique:cities,name,'.$id
         ]);
         City::find($id)->update($request->all());
         return redirect(url(route('city.index')))->with('success', 'City Updated');

@@ -48,7 +48,6 @@ class DonationRequestController extends Controller
   public function show($id)
   {
       $record = DonationRequest::find($id);
-      //dd($record);
       return view('admin/pages/donations.donation')->with(['record' => $record]);
   }
 
