@@ -49,7 +49,7 @@ class AdminController extends Controller
             'permission_list' => 'required|array',
         ]);
 
-        $request->merge(['password'=> Hash::make($request->input('password'))]);
+        $request->merge(['password' => Hash::make($request->input('password'))]);
         $user = User::create($request->except('role_list', 'permission_list'));
         $user->assignRole($request->input('role_list'));
         $user->givePermissionTo($request->input('permission_list'));
@@ -70,7 +70,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -83,41 +83,40 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
-            'password' => 'required|min:8',
-            'email' => 'required|email|unique:users,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'role_list' => 'required|array',
             'permission_list' => 'required|array',
         ]);
 
         $user = User::find($id);
-            if($request->input('status')) {
-                $user->update(['status' => 0]);
-                return redirect(route('admin.index'))->with('danger', 'User Banned');
-            }else{
-                $user->update(['status' => 1]);
-            }
-            $user->update($request->except('role_list', 'permission_list', 'status','password'));
-            $user->syncRoles($request->input('role_list'));
-            $user->syncPermissions($request->input('permission_list'));
+        if ($request->input('status')) {
+            $user->update(['status' => 0]);
+            return redirect(route('admin.index'))->with('danger', 'User Banned');
+        } else {
+            $user->update(['status' => 1]);
+        }
+        $user->update($request->except('role_list', 'permission_list', 'status', 'password'));
+        $user->syncRoles($request->input('role_list'));
+        $user->syncPermissions($request->input('permission_list'));
         return redirect(route('admin.index'))->with('success', 'User Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
     {
-        $user= User::find($id)->delete();
+        $user = User::find($id)->delete();
         return redirect(route('admin.index'))->with('warning', 'User Deleted');
     }
 }

@@ -17,37 +17,6 @@
         <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
-                    <div class="col-md-2">
-                        <a class="btn btn-sm" href="{{route('post.index')}}">
-                            <i class="fa fa-list"></i>
-                            All
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Categories
-                                    </a>
-                                    <div class="dropdown-menu" >
-                                        <a class="dropdown-item" href="{{route('post.index')}}">All</a>
-                                        <div class="dropdown-divider"></div>
-                                        @if(!empty($categories))
-                                            @foreach($categories->all() as $record)
-                                                <a class="dropdown-item" href="{{route('post.show', $record->id)}}">{{$record->name}}</a>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </li>
-                            </ul>
-                    </div>
-                    <div class="col-md-6">
-                        {!! Form::open(['url' => '/search', 'method' => 'get']) !!}
-                            <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search...">
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-12">
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 

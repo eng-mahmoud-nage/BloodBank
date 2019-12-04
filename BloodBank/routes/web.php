@@ -11,9 +11,32 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::group(['namespace' => 'Front'], function () {
+    Route::get('/home', 'Maincontroller@home');
+    Route::any('/client-signup', 'Maincontroller@client_signup');
+    Route::any('/forgetPassword', 'Maincontroller@forgetPassword');
+    Route::any('/client-login', 'Maincontroller@client_login');
+    Route::any('/client-logout', 'Maincontroller@client_logout');
+
+    Route::get('/about_us', 'Maincontroller@about_us');
+    Route::get('/article/{id}', 'Maincontroller@article');
+    Route::any('/contact_us', 'Maincontroller@contact_us');
+    Route::get('/donator/{id}', 'Maincontroller@donator');
+    Route::get('/donation_requests', 'Maincontroller@donation_requests');
+
+    Route::group(['middleware' => 'auth:client-web'], function () {
+        Route::get('/profile', 'Maincontroller@profile');
+        Route::any('/new_request', 'Maincontroller@new_request');
+        Route::any('/notification_setting', 'Maincontroller@notification_setting');
+    });
+});
+
 
 Auth::routes();
-Route::group(['middleware' => ['auth', 'autoCheckPermission']], function (){
+Route::group(['middleware' => ['auth:web', 'autoCheckPermission'], 'prefix' => 'admin'], function () {
     // dashboard page
     Route::get('/', function () {
         return view('admin.dashboard');

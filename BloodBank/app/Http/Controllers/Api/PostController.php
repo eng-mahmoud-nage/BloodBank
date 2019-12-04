@@ -6,6 +6,8 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use function foo\func;
+use function Sodium\compare;
 
 class PostController extends Controller
 {
@@ -48,5 +50,15 @@ class PostController extends Controller
                     ->get()->load('category');
 
         return ResponseJson(1, 'posts', ['record' => $record]);
+    }
+
+    public function favoriteToggle(Request $request){
+        $request->user()->posts()->toggle($request->input('post_id'));
+        return ResponseJson(1,'success');
+    }
+
+    public function favorites(Request $request){
+        $toggles = $request->user()->posts;
+        return ResponseJson(1,'success', compact('toggles'));
     }
 }

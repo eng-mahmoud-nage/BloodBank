@@ -21,6 +21,7 @@ class CreateDonationRequestsTable extends Migration {
 			$table->decimal('latittude', 10,8)->unsigned();
 			$table->decimal('longitude', 10,8)->unsigned();
 			$table->integer('client_id')->unsigned()->nullable();
+			$table->string('phone');
 		});
 	}
 

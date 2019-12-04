@@ -6,11 +6,6 @@
     @if(!empty($records))
     <div class="card">
         <div class="card-header">
-            <a class="btn btn-outline-primary" style="width: 100px;" href="{{route('client.create')}}">
-              <span class="float-md-left">
-                  <i class="fa fa-plus"></i>
-              </span>New
-            </a>
         </div><!-- /.card-header -->
         <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">

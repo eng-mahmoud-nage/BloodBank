@@ -18,6 +18,9 @@ class CreateSettingsTable extends Migration {
 			$table->string('youtube_link');
 			$table->text('about_app');
 			$table->string('e_mail');
+			$table->string('phone');
+            $table->string('fax');
+            $table->text('about_us');
 			$table->string('notification_setting_text');
 		});
 	}

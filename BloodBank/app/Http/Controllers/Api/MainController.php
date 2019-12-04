@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function cities(){
-        $record = City::all();
+    public function cities(Request $request){
+        $record = City::where('governorate_id', $request->governorate_id)->get();
         return ResponseJson(1, 'cities', ['record' => $record]);
     }
 

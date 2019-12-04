@@ -40,11 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'clients',
             'hash' => false,
+        ],
+        'client-web' => [
+            'driver' => 'session',
+            'provider' => 'clients'
         ],
     ],
 

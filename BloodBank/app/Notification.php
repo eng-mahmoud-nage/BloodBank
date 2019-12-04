@@ -18,7 +18,7 @@ class Notification extends Model
 
     public function clients()
     {
-        return $this->morphToMany('App\Client', 'clientable')is_read;
+        return $this->morphToMany('App\Client', 'clientable');
     }
 
 }

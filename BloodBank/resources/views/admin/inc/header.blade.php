@@ -96,7 +96,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/profile')}}">
+            <a class="nav-link" href="{{url('/admin/profile')}}">
                 <i class="fa fa-user-alt"></i>
                 <span class="badge badge-warning navbar-badge" style="margin-top: 20px">Profile</span>
             </a>
@@ -171,7 +171,7 @@
                 <img src="{{url('/')}}/Admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{url('/profile')}}" class="d-block">{{auth()->check()?auth()->user()->name:''}}</a>
+                <a href="{{url('/admin/profile')}}" class="d-block">{{auth()->check()?auth()->user()->name:''}}</a>
             </div>
         </div>
 
@@ -247,6 +247,13 @@
                     <a href="{{url(route('contact.index'))}}" class="nav-link">
                         <i class="fa fa-comment-alt nav-icon"></i>
                         <p>Messages</p>
+                    </a>
+                </li>
+                {{--       // Blood Types         --}}
+                <li class="nav-item">
+                    <a href="{{url(route('bloodtype.index'))}}" class="nav-link">
+                        <i class="fas fa-pen nav-icon"></i>
+                        <p>Blood Types</p>
                     </a>
                 </li>
                 {{--       // Donations         --}}

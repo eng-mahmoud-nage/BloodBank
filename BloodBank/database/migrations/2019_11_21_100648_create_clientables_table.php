@@ -7,13 +7,13 @@ class CreateClientableTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('clientable', function(Blueprint $table) {
+		Schema::create('clientables', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('client_id')->unsigned()->nullable();
-			$table->integer('clintable_id');
-			$table->string('clintable_type');
-			$table->boolean('is_read');
+			$table->integer('clientable_id');
+			$table->string('clientable_type');
+			$table->boolean('is_read')->nullable();
 		});
 	}
 

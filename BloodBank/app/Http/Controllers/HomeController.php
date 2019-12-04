@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:web');
     }
 
     /**
@@ -35,6 +35,6 @@ class HomeController extends Controller
             'email' => 'required',
         ]);
         auth()->user()->update($request->all());
-        return redirect(url('/profile'))->with('success', 'Profile Updated.');
+        return redirect(url('/admin/profile'))->with('success', 'Profile Updated.');
     }
 }
