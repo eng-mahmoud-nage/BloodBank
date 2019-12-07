@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration {
 
@@ -21,7 +22,7 @@ class CreateSettingsTable extends Migration {
 			$table->string('phone');
             $table->string('fax');
             $table->text('about_us');
-			$table->string('notification_setting_text');
+			$table->text('notification_setting_text');
 		});
 	}
 

@@ -15,7 +15,9 @@
         "laravelcollective/html": "^6.0",
         "spatie/laravel-permission": "^3.3",
         "ext-http": "*",
-        "ext-libsodium": "*"
+        "ext-libsodium": "*",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

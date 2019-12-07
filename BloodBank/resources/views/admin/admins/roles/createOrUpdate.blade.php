@@ -21,7 +21,7 @@
         {{Form::text('guard_name', $record->guard_name, ['class' => 'form-control'])}}
     </div>
     <div class="form-group">
-        <label for="permission_list">Roles</label>
+        <label for="permission_list">Permissions</label>
         <div class="row">
             @foreach($permission->all() as $p)
                 <div class="col-md-3">

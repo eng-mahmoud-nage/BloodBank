@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class CreateForeignKeys extends Migration {
 
@@ -53,10 +54,15 @@ class CreateForeignKeys extends Migration {
 						->onDelete('set null')
 						->onUpdate('set null');
 		});
-		Schema::table('clientable', function(Blueprint $table) {
+		Schema::table('clientables', function(Blueprint $table) {
 			$table->foreign('client_id')->references('id')->on('clients')
 						->onDelete('set null')
 						->onUpdate('set null');
+		});
+		Schema::table('tokens', function(Blueprint $table) {
+			$table->foreign('client_id')->references('id')->on('clients')
+						->onDelete('cascade')
+						->onUpdate('cascade');
 		});
 	}
 
@@ -89,8 +95,11 @@ class CreateForeignKeys extends Migration {
 		Schema::table('notifications', function(Blueprint $table) {
 			$table->dropForeign('notifications_donation_request_id_foreign');
 		});
-		Schema::table('clientable', function(Blueprint $table) {
-			$table->dropForeign('clientable_client_id_foreign');
+		Schema::table('clientables', function(Blueprint $table) {
+			$table->dropForeign('clientables_client_id_foreign');
+		});
+		Schema::table('tokens', function(Blueprint $table) {
+			$table->dropForeign('tokens_client_id_foreign');
 		});
 	}
 }

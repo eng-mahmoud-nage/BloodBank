@@ -17,7 +17,8 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function (){
 
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
-    Route::post('/reset-password', 'AuthController@resetPassword');
+    Route::post('/reset-password', 'AuthController@reset_password');
+    Route::post('/new-password', 'AuthController@new_password');
 
     Route::get('/cities', 'MainController@cities');
     Route::get('/governorates', 'MainController@governorates');
@@ -35,7 +36,18 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function (){
         Route::any('/profile', 'AuthController@profile');
         Route::post('/change-password', 'AuthController@changePassword');
         Route::post('/toggle', 'PostController@favoriteToggle');
-        Route::post('/favorites', 'PostController@favorites');
+        Route::get('/favorites', 'PostController@favorites');
+        Route::post('/donation-request', 'DonationController@new_request');
+        Route::post('/set_token', 'DonationController@set_token');
+        Route::get('/notify', 'NotificationController@notification');
+        Route::get('/notification-list', 'NotificationController@notifications');
+        Route::get('/unread-notification', 'NotificationController@unread_notification');
+        Route::post('/set-read', 'NotificationController@set_read');
+        Route::get('/donation', 'DonationController@donation');
+        Route::get('/donations', 'DonationController@donations');
+
+        Route::post('/change-password', 'AuthController@change_password');
+
     });
 
 });

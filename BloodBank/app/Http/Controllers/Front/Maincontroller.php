@@ -7,6 +7,7 @@ use App\DonationRequest;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Client;
+use App\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -127,7 +128,6 @@ class Maincontroller extends Controller
             $clients = $donation->city->governorate->clients()->whereHas('blood_types', function ($q) use ($donation, $request) {
                 $q->where('blood_types.id', $donation->blood_type_id);
             })->pluck('clients.id')->toArray();
-
             if ($clients) {
                 $notification->clients()->attach($clients);
             }

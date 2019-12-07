@@ -3,7 +3,7 @@
 @inject('cities', "App\City")
 @extends('Front.layouts.master')
 @section('title')
-    Sign Up
+    New Request
 @endsection
 @section('content')
     <!-- Navigator Start -->

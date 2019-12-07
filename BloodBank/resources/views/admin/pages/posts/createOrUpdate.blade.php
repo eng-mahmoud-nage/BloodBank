@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             {{Form::label('content', 'Content' )}}
-            {{Form::text('content', $record->content, ['class' => 'form-control'])}}
+            {{Form::textarea('content', $record->content, ['class' => 'form-control'])}}
         </div>
         <div class="form-group">
             {{Form::label('image', 'Image' )}}

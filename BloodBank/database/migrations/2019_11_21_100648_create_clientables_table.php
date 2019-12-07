@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateClientableTable extends Migration {
+class CreateClientablesTable extends Migration {
 
 	public function up()
 	{
@@ -19,6 +19,6 @@ class CreateClientableTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('clientable');
+		Schema::drop('clientables');
 	}
 }

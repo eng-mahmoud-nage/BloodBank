@@ -29,7 +29,8 @@ class Client extends Authenticatable
 
     public function notifications()
     {
-        return $this->morphedByMany('App\Notification', 'clientable');
+        return $this->morphedByMany('App\Notification', 'clientable')
+            ->withPivot('is_read');
     }
 
     public function blood_types()
@@ -45,6 +46,10 @@ class Client extends Authenticatable
     public function donation_requests()
     {
         return $this->hasMany('App\DonationRequest');
+    }
+    public function tokens()
+    {
+        return $this->hasMany('App\Token');
     }
 
     protected $hidden = [

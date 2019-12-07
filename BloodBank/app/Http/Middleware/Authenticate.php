@@ -17,8 +17,7 @@ class Authenticate extends Middleware
         $middle = $request->route()->middleware()[1];
         if (! $request->expectsJson() && $middle =="auth:client-web") {
             return url('/client-login');
-        }elseif(! $request->expectsJson() && $middle =="auth:admin-web"){
-            dd($middle);
+        }elseif(! $request->expectsJson() && $middle =="auth:web"){
             return route('login');
         }elseif($request->expectsJson()){
             return ResponseJson(0, 'unauthenticated','');
